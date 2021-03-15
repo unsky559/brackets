@@ -1,39 +1,67 @@
 module.exports = function check(str, bracketsConfig) {
-  let array = str.split('')
-  let opensSum = 0
-  
-  for(let k in str){
-    for (let i in bracketsConfig) {
+  let stack = [];
+  let brackets = {};
 
-        if(opensSum < 0)
-          return false;
-
-
-        if(bracketsConfig[i][0] == bracketsConfig[i][1]){
-          //for || situations
-
-
-        }else {
-
-          if(str[k] == bracketsConfig[i][0])
-            opensSum++
-          else if(str[k] == bracketsConfig[i][1])
-            opensSum--
-
-      }
-
-    }
+  for (let i in bracketsConfig) {
+    brackets[bracketsConfig[i][0]] = bracketsConfig[i][1];
   }
 
-  for(let k in str){
-    for (let i in bracketsConfig) {
-      if(str[k] == bracketsConfig[i][0] || str[k] == bracketsConfig[i][1]){
-        return true
-      }else{
-        return false
-      }
-    }
+  stack.push(str[0])
+
+  for (var j = 1; j < str.length; j++) {
+    if(str[j] === brackets[stack[stack.length-1]])
+      stack.pop()
+    else
+      stack.push(str[j])
   }
+
+  if(stack.length > 0){
+    return false
+  }
+  else{
+    return true
+  }
+
+//   console.log(stack);
+//
+// console.log(brackets);
+  // let array;
+  // let opensSum = 0
+  // let result;
+  //
+  //
+  //
+  // for(let k in str){
+  //   for (let i in bracketsConfig) {
+  //
+  //       if(opensSum < 0)
+  //         return false;
+  //
+  //       if(bracketsConfig[i][0] == bracketsConfig[i][1]){
+  //         //for || situations
+  //         if((str.split(bracketsConfig[i][0]).length - 1)%2 != 0){
+  //           return false
+  //         }
+  //       }else {
+  //         if(str[k] == bracketsConfig[i][0])
+  //           opensSum++
+  //         else if(str[k] == bracketsConfig[i][1])
+  //           opensSum--
+  //       }
+  //
+  //   }
+  // }
+  //
+  // for(let k in str){
+  //   for (let i in bracketsConfig) {
+  //     if(str[k] == bracketsConfig[i][0] || str[k] == bracketsConfig[i][1]){
+  //       return true
+  //     }else{
+  //       return false
+  //     }
+  //   }
+  // }
+
 
 
   // for(let k in str){
